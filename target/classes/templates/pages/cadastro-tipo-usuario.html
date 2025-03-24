@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Tipo de Usuário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- Importação do Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <!-- Icones do FontAwesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <!-- Icones do Bootstrap -->
+</head>
+<body class="container mt-5">
+
+	<div th:if="${msgTexto != null}" class="mt-2">
+	    <div th:class="'alert alert-' + ${msgTipo}" role="alert" id="mensagem-alerta">
+	        <span th:text="${msgTexto}"></span>
+	    </div>
+	</div>
+		
+    <h2>Novo Tipo de Usuário</h2>
+
+    <form th:action="@{/tipo-usuario/salvar}" th:object="${tipoUsuarioDTO}" method="post" class="mt-3">
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" th:field="*{descricao}" class="form-control" id="descricao">
+            <div class="text-danger" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salvar</button>
+        <a th:href="@{/usuarios}" class="btn btn-secondary">Voltar</a>
+    </form>
+
+
+</body>
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const alerta = document.getElementById('mensagem-alerta');
+        if (alerta) {
+            setTimeout(() => {
+                alerta.style.display = 'none';
+            }, 10000);
+        }
+    });
+</script>
+</html>

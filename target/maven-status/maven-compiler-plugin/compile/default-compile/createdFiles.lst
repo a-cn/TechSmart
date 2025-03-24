@@ -1,0 +1,11 @@
+com\techsmart\controller\UsuarioController.class
+com\techsmart\repository\UsuarioRepository.class
+com\techsmart\model\PerguntaSeguranca.class
+com\techsmart\repository\TipoUsuarioRepository.class
+com\techsmart\controller\TipoUsuarioController.class
+com\techsmart\dto\TipoUsuarioDTO.class
+com\techsmart\model\Usuario.class
+com\techsmart\TechSmartApplication.class
+com\techsmart\model\TipoUsuario.class
+com\techsmart\model\ToastMessage.class
+com\techsmart\model\Endereco.class
