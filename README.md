@@ -16,7 +16,11 @@ Antes de rodar o projeto, garanta que os seguintes softwares estejam instalados:
 | **Lombok**       | Redução de boilerplate com anotações úteis                                  |
 | **Git**          | Controle de versionamento                                                    |
 
-> ℹ️ Caso não possua algum desses itens, acesse a pasta **`instalação`** e siga os tutoriais de configuração.
+> ℹ️ Caso não possua algum desses itens, acesse a pasta **`Instalação`** no Drive e siga os tutoriais de configuração.
+
+```
+https://drive.google.com/drive/u/1/folders/14EZh-sAtGhGTIauW_vkgX6EPjtaWKeG8
+```
 
 ---
 
