@@ -5,7 +5,7 @@
 
 USE master -- Importante começar no banco de dados "master"
 
-CREATE LOGIN techsmart_user WITH PASSWORD = '$Ue+bes7AH{$';
+CREATE LOGIN techsmart_user WITH PASSWORD = 'Teste123!';
 GO
 
 USE TechSmartDB -- Após o script acima, as linhas seguintes irão rodar no banco TechSmartDB
