@@ -9,25 +9,89 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.techsmart.dto.PerguntaSegurancaDTO;
 import com.techsmart.dto.UsuarioDTO;
+import com.techsmart.mapper.UsuarioMapper;
 import com.techsmart.model.Usuario;
 import com.techsmart.repository.UsuarioRepository;
 import com.techsmart.service.UsuarioService;
+import com.techsmart.util.HashUtil;
 
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final UsuarioMapper usuarioMapper;
     
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, UsuarioMapper usuarioMapper) {
 		this.usuarioService = usuarioService;
+		this.usuarioMapper = usuarioMapper;
     }
 	
     @GetMapping
     public String carregaPagina(Model model) {
     	return "pages/cadastro-usuario";
     }
+    
+    @GetMapping("/buscar-pergunta-seguranca")
+    public String buscarPerguntSegurancaPorLogin(
+        @RequestParam(name = "login") String login, 
+        Model model) {
+
+        PerguntaSegurancaDTO pergunta = usuarioService.buscarPerguntaSegurancaPorLogin(login);
+
+        if (pergunta == null) {
+            model.addAttribute("erro", "Usuário não encontrado.");
+            model.addAttribute("loginDTO", new UsuarioDTO()); // adiciona para evitar erro no Thymeleaf
+            return "index";
+        }
+
+        model.addAttribute("login", login);
+        model.addAttribute("pergunta", pergunta.getPergunta());
+        model.addAttribute("mostrarModal", true);
+        model.addAttribute("loginDTO", new UsuarioDTO()); // adiciona para evitar erro no Thymeleaf
+
+        return "index";
+    }
+
+
+    @PostMapping("/verificar-resposta-pergunta")
+    public String verificarRespostaPergunta(
+            @RequestParam(name = "resposta") String resposta,
+            @RequestParam(name = "login") String login,
+            Model model) {
+
+        UsuarioDTO usrDto = this.usuarioMapper.toDto(this.usuarioService.buscarPorLogin(login));
+
+        if (!resposta.equalsIgnoreCase(usrDto.getRespostaSeguranca())) {
+            model.addAttribute("erro", "Resposta incorreta!");
+            return "index";
+        }
+
+        model.addAttribute("login", login);
+        return "pages/recuperar-senha";
+    }
+    
+    @PostMapping("/atualizar-senha")
+    public String atualizarSenha(
+            @RequestParam(name = "login") String login,
+            @RequestParam(name = "novaSenha") String novaSenha,
+            @RequestParam(name = "confirmarSenha") String confirmarSenha,
+            Model model) {
+
+        if (!novaSenha.equals(confirmarSenha)) {
+            model.addAttribute("erro", "As senhas não coincidem.");
+            model.addAttribute("login", login);
+            return "pages/recuperar-senha";
+        }
+
+        usuarioService.atualizarSenha(login, HashUtil.sha1(novaSenha)); // você precisa implementar este método no service
+
+        model.addAttribute("mensagem", "Senha atualizada com sucesso. Faça login com a nova senha.");
+        return "index";
+    }
+
     
     /*
     @GetMapping
