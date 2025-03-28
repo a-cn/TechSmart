@@ -2,8 +2,8 @@ package com.techsmart.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.techsmart.model.Usuario;
+import com.techsmart.model.Feedback;
 
-public interface FeedbackRepository extends JpaRepository<Usuario, Integer> {
+public interface FeedbackRepository extends JpaRepository<Feedback, Integer> {
 
 }
