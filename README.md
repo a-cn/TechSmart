@@ -1,4 +1,4 @@
-mirian 44444teste # 💡 Projeto TechSmart - 
+💡 Projeto TechSmart - 
 
 Bem-vindo ao repositório do **TechSmart**! Este projeto utiliza **Spring Boot** com Java 17 e segue uma arquitetura limpa, clara e escalável. Ideal para aplicações modernas e robustas. 🚀
 
