@@ -1,0 +1,21 @@
+<div th:fragment="verificador-pergunta-seguranca(login, pergunta)">
+    <div id="modal-verificacao" class="modal fade" tabindex="-1" role="dialog" style="display: none; background: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content p-4">
+                <h5 class="modal-title mb-3">Verificação de Segurança</h5>
+                <p><strong>Pergunta:</strong> <span th:text="${pergunta}">Sua pergunta de segurança aparecerá aqui</span></p>
+
+                <form th:action="@{/usuario/verificar-resposta}" method="post">
+                    <input type="hidden" name="login" th:value="${login}" />
+                    <div class="mb-3">
+                        <label for="resposta" class="form-label">Resposta</label>
+                        <input type="text" class="form-control" id="resposta" name="resposta" required>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Verificar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

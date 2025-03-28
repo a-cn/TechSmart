@@ -5,8 +5,10 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.techsmart.dto.PerguntaSegurancaDTO;
 import com.techsmart.dto.UsuarioDTO;
 import com.techsmart.mapper.UsuarioMapper;
+import com.techsmart.model.PerguntaSeguranca;
 import com.techsmart.model.Usuario;
 import com.techsmart.repository.UsuarioRepository;
 
@@ -30,4 +32,12 @@ public class UsuarioService {
         return usuarioRepository.findByCpfCnpj(cpfCnpj)
                 .map(usuarioMapper::toDto);
     }
+    
+    public PerguntaSegurancaDTO buscarPerguntaSegurancaPorLogin(String login){
+    	return usuarioRepository.buscarPerguntaPorLogin(login).orElse(null);
+    }
+
+	public Usuario buscarPorLogin(String login) {
+		return this.usuarioRepository.findByEmail(login).orElse(null);
+	}
 }

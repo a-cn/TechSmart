@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.techsmart.dto.PerguntaSegurancaDTO;
 import com.techsmart.dto.UsuarioDTO;
+import com.techsmart.mapper.UsuarioMapper;
 import com.techsmart.model.Usuario;
 import com.techsmart.repository.UsuarioRepository;
 import com.techsmart.service.UsuarioService;
@@ -19,14 +21,50 @@ import com.techsmart.service.UsuarioService;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
+    private final UsuarioMapper usuarioMapper;
     
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, UsuarioMapper usuarioMapper) {
 		this.usuarioService = usuarioService;
+		this.usuarioMapper = usuarioMapper;
     }
 	
     @GetMapping
     public String carregaPagina(Model model) {
     	return "pages/cadastro-usuario";
+    }
+    
+    @GetMapping("/buscar-pergunta-seguranca")
+    public String buscarPerguntSegurancaPorLogin(
+    	@RequestParam(name = "login") String login, 
+    	Model model) {
+    	
+        PerguntaSegurancaDTO pergunta = usuarioService.buscarPerguntaSegurancaPorLogin(login);
+
+        if (pergunta == null) {
+            model.addAttribute("erro", "Usuário não encontrado.");
+            return "index";
+        }
+
+        model.addAttribute("login", login);
+        model.addAttribute("pergunta", pergunta.getPergunta());
+        model.addAttribute("mostrarModal", true);
+
+        return "index";
+    }
+
+    @GetMapping("/verificar-resposta-pergunta")
+    public String verificarRespostaPergunta(
+    		@RequestParam(name = "resposta") String resposta,
+    		@RequestParam(name = "login") String login,
+    		Model model) {
+    	
+    	UsuarioDTO usrDto = this.usuarioMapper.toDto(this.usuarioService.buscarPorLogin(login));
+    	if(resposta != usrDto.getRespostaSeguranca()) {
+    		model.addAttribute("erro", "Resposta incorreta!");
+    		return "index";
+    	}
+    	
+    	//redireciona para tela de recuperação de senha
     }
     
     /*
