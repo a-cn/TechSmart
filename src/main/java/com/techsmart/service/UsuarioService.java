@@ -23,6 +23,11 @@ public class UsuarioService {
         this.usuarioMapper = usuarioMapper;
     }
 
+    public boolean validarLogin(String login, String senha) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(login);
+        return usuarioOpt.isPresent() && usuarioOpt.get().getSenha().equals(senha);
+    }
+    
     public List<UsuarioDTO> listarUsuarios() {
         List<Usuario> usuarios = usuarioRepository.findAll();
         return usuarios.stream().map(usuarioMapper::toDto).toList();

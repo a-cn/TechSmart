@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,25 +13,27 @@
 
     <title>Login</title>
 </head>
+
 <body>
 
     <!-- Fragmento do modal de verificação (só será ativado se mostrarModal=true) -->
     <div th:if="${pergunta}" th:replace="~{fragments/verificador-pergunta :: verificador-pergunta-seguranca(${login}, ${pergunta})}"></div>
 
-    <!-- Container de login -->
-    <div class="login-container">
+	<div class="login-container">
         <h2>Login</h2>
 
-        <input type="email" placeholder="Email" id="email-login">
-        <input type="password" placeholder="Senha">
+        <form th:action="@{/login}" th:object="${loginDTO}" method="post">
+            <input type="email" placeholder="Email" th:field="*{login}">
+            <input type="password" placeholder="Senha" th:field="*{senha}">
 
-        <a th:href="@{/pagina-inicial}">
-            <button>Acessar Usuário</button>
-        </a>
+            <button type="submit">Acessar Usuário</button>
 
-        <!-- Form de "Esqueci a senha" -->
-        <a href="#" class="forgot-password" onclick="enviarLogin()">Esqueceu a senha?</a>
+            <div th:if="${erro}" class="text-danger">
+                <p th:text="${erro}"></p>
+            </div>
+        </form>
 
+        <a href="#" class="forgot-password">Esqueceu a senha?</a>
         <div class="separator">ou</div>
         <a href="#" class="register-link">Cadastre-se</a>
     </div>

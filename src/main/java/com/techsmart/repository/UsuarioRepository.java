@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-
+ 
 	Optional<Usuario> findByCpfCnpj(String cpfCnpj);
 	Optional<Usuario> findByEmail(String email);
 	
