@@ -25,6 +25,8 @@ public class UsuarioMapper {
                     + ", " + usuario.getEndereco().getNumero();
             dto.setEnderecoResumo(enderecoResumo);
         }
+        
+        dto.setRespostaSeguranca(usuario.getRespostaSeguranca());
 
         return dto;
     }

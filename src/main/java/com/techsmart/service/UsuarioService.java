@@ -40,4 +40,13 @@ public class UsuarioService {
 	public Usuario buscarPorLogin(String login) {
 		return this.usuarioRepository.findByEmail(login).orElse(null);
 	}
+	
+	public void atualizarSenha(String login, String novaSenha) {
+	    Usuario usuario = usuarioRepository.findByEmail(login)
+	        .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+	    usuario.setSenha(novaSenha);
+	    usuarioRepository.save(usuario);
+	}
+
 }

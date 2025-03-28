@@ -52,20 +52,42 @@ public class UsuarioController {
         return "index";
     }
 
-    @GetMapping("/verificar-resposta-pergunta")
+    @PostMapping("/verificar-resposta-pergunta")
     public String verificarRespostaPergunta(
-    		@RequestParam(name = "resposta") String resposta,
-    		@RequestParam(name = "login") String login,
-    		Model model) {
-    	
-    	UsuarioDTO usrDto = this.usuarioMapper.toDto(this.usuarioService.buscarPorLogin(login));
-    	if(resposta != usrDto.getRespostaSeguranca()) {
-    		model.addAttribute("erro", "Resposta incorreta!");
-    		return "index";
-    	}
-    	
-    	//redireciona para tela de recuperação de senha
+            @RequestParam(name = "resposta") String resposta,
+            @RequestParam(name = "login") String login,
+            Model model) {
+
+        UsuarioDTO usrDto = this.usuarioMapper.toDto(this.usuarioService.buscarPorLogin(login));
+
+        if (!resposta.equalsIgnoreCase(usrDto.getRespostaSeguranca())) {
+            model.addAttribute("erro", "Resposta incorreta!");
+            return "index";
+        }
+
+        model.addAttribute("login", login);
+        return "pages/recuperar-senha";
     }
+    
+    @PostMapping("/atualizar-senha")
+    public String atualizarSenha(
+            @RequestParam(name = "login") String login,
+            @RequestParam(name = "novaSenha") String novaSenha,
+            @RequestParam(name = "confirmarSenha") String confirmarSenha,
+            Model model) {
+
+        if (!novaSenha.equals(confirmarSenha)) {
+            model.addAttribute("erro", "As senhas não coincidem.");
+            model.addAttribute("login", login);
+            return "pages/recuperar-senha";
+        }
+
+        usuarioService.atualizarSenha(login, novaSenha); // você precisa implementar este método no service
+
+        model.addAttribute("mensagem", "Senha atualizada com sucesso. Faça login com a nova senha.");
+        return "index";
+    }
+
     
     /*
     @GetMapping
