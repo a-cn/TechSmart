@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.techsmart.dto.LoginDTO;
 import com.techsmart.service.UsuarioService;
+import com.techsmart.util.HashUtil;
 
 import jakarta.validation.Valid;
 
@@ -39,6 +40,9 @@ public class LoginController {
             model.addAttribute("erro", "Dados inválidos!");
             return "index";
         }
+        
+        //Aplica criptografia na senha
+        loginDTO.setSenha(HashUtil.sha1(loginDTO.getSenha()));
 
         boolean sucesso = usuarioService.validarLogin(loginDTO.getLogin(), loginDTO.getSenha());
 
