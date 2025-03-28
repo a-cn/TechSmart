@@ -7,67 +7,48 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"> <!-- Icones do FontAwesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> <!-- Icones do Bootstrap -->
     <link rel="stylesheet" th:href="@{/pagina-inicial/pagina-inicial.css}">
-    <title>Página Inicial Funcionários</title>
+    <title>Página Inicial</title>
 </head>
 <body>
     <h1>PÁGINA INICIAL ADMINISTRADOR</h1>
     <div class="grid-container">
-        <div class="grid-item">
-			<a th:href="@{/fornecedor}">
-		        <button>FORNECEDORES</button>
-		    </a>
+		<a th:href="@{/fornecedor}">
+        	<div class="grid-item">
+		        FORNECEDORES
+		    </div>
+		</a>
+		
+        <a th:href="@{/producao}">
+			<div class="grid-item">
+		        LINHAS DE PRODUÇÃO
+			</div>
+		</a>
+		
+		<a th:href="@{/produto}">
+        	<div class="grid-item">
+		        PRODUTOS
+			</div>
+		</a>
+		
+		<a th:href="@{/componente}">
+        	<div class="grid-item">
+		        COMPONENTES
+			</div>
+		</a>
+		
+        <div class="grid-item">PEDIDOS
+			<!-- AQUI SERÁ INSERIDO O CAMINHO PARA A TELA DE LISTAGEM DE PEDIDOS -->
 		</div>
-        <div class="grid-item">
-			<a th:href="@{/producao}">
-		        <button>LINHA DE PRODUÇÃO</button>
-		    </a>
-			
+		
+        <div class="grid-item">COLABORADORES
+			<!-- AQUI SERÁ INSERIDO O CAMINHO PARA A TELA DE LISTAGEM DE USUÁRIOS DO TIPO COLABORADOR -->
 		</div>
-        <div class="grid-item">
-			<a th:href="@{/produto}">
-		        <button>PRODUTOS</button>
-		    </a>
-			
-		</div>
-        <div class="grid-item">CRONOGRAMAS
-			
-			
-		</div>
-        <div class="grid-item">COMPONENTES
-			<a th:href="@{/componente}">
-		        <button>COMPONENTES</button>
-		    </a>
-			
-		</div>
-        <div class="grid-item">EQUIPES
-			
-			
-		</div>
-        <div class="grid-item">VENDAS
-			
-			
-		</div>
-        <div class="grid-item">FUNCIONÁRIOS
-			
-			
-		</div>
-        <div class="grid-item">INVENTÁRIO
-			
-			
-		</div>
-        <div class="grid-item">RASTREIO
-			
-			
-		</div>
-        <div class="grid-item">USUÁRIOS
-			<a th:href="@{/usuario}">
-		        <button>USUÁRIOS</button>
-		    </a>
-		</div>
-        <div class="grid-item">INSPEÇÃO
-			
-			
-		</div>
+		
+        <a th:href="@{/usuario}">
+        	<div class="grid-item">
+		        USUÁRIOS <!-- AQUI SERÁ ALTERADO PARA A TELA DE LISTAGEM DE USUÁRIOS DO TIPO CLIENTE -->
+		    </div>
+		</a>
     </div>
 </body>
 <script src="@{/pagina-inicial/pagina-inicial.js}"></script>
