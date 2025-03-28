@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data 
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class Movimentacao {
     private Integer id;
 
     @Column(name = "data_hora", nullable = false)
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
 
     @Column(name = "tipo_movimentacao", length = 50, nullable = false)
     private String tipoMovimentacao;

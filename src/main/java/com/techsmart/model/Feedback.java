@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data 
 @NoArgsConstructor
@@ -25,7 +25,7 @@ public class Feedback {
     private Integer id;
 
     @Column(name = "data_hora", nullable = false)
-    private LocalDate dataHora;
+    private LocalDateTime dataHora;
 
     @ManyToOne //Relacionamento com a tabela "Pedido"
     @JoinColumn(name = "fk_pedido", nullable = false)
