@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.techsmart.dto.LoginDTO;
 import com.techsmart.service.UsuarioService;
@@ -32,19 +33,14 @@ public class LoginController {
 	
 	@PostMapping("/login")
     public String realizarLogin(
-    	@Valid @ModelAttribute("loginDTO") LoginDTO loginDTO, 
-    	BindingResult result, 
-    	Model model) {
-
-        if (result.hasErrors()) {
-            model.addAttribute("erro", "Dados inválidos!");
-            return "index";
-        }
+		@RequestParam(name = "login") String login,
+	    @RequestParam(name = "senha") String senha,
+	    Model model) {
         
         //Aplica criptografia na senha
-        loginDTO.setSenha(HashUtil.sha1(loginDTO.getSenha()));
-
-        boolean sucesso = usuarioService.validarLogin(loginDTO.getLogin(), loginDTO.getSenha());
+        senha = HashUtil.sha1(senha);
+        
+        boolean sucesso = usuarioService.validarLogin(login, senha);
 
         if (sucesso) {
             return "redirect:/pagina-inicial";

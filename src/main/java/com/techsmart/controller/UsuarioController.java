@@ -15,6 +15,7 @@ import com.techsmart.mapper.UsuarioMapper;
 import com.techsmart.model.Usuario;
 import com.techsmart.repository.UsuarioRepository;
 import com.techsmart.service.UsuarioService;
+import com.techsmart.util.HashUtil;
 
 @Controller
 @RequestMapping("/usuario")
@@ -35,22 +36,25 @@ public class UsuarioController {
     
     @GetMapping("/buscar-pergunta-seguranca")
     public String buscarPerguntSegurancaPorLogin(
-    	@RequestParam(name = "login") String login, 
-    	Model model) {
-    	
+        @RequestParam(name = "login") String login, 
+        Model model) {
+
         PerguntaSegurancaDTO pergunta = usuarioService.buscarPerguntaSegurancaPorLogin(login);
 
         if (pergunta == null) {
             model.addAttribute("erro", "Usuário não encontrado.");
+            model.addAttribute("loginDTO", new UsuarioDTO()); // adiciona para evitar erro no Thymeleaf
             return "index";
         }
 
         model.addAttribute("login", login);
         model.addAttribute("pergunta", pergunta.getPergunta());
         model.addAttribute("mostrarModal", true);
+        model.addAttribute("loginDTO", new UsuarioDTO()); // adiciona para evitar erro no Thymeleaf
 
         return "index";
     }
+
 
     @PostMapping("/verificar-resposta-pergunta")
     public String verificarRespostaPergunta(
@@ -82,7 +86,7 @@ public class UsuarioController {
             return "pages/recuperar-senha";
         }
 
-        usuarioService.atualizarSenha(login, novaSenha); // você precisa implementar este método no service
+        usuarioService.atualizarSenha(login, HashUtil.sha1(novaSenha)); // você precisa implementar este método no service
 
         model.addAttribute("mensagem", "Senha atualizada com sucesso. Faça login com a nova senha.");
         return "index";

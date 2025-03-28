@@ -1,5 +1,5 @@
 function enviarLogin() {
-    const email = document.getElementById("email-login").value;
+    const email = document.getElementById("login").value;
     if (!email) {
         alert("Informe o e-mail antes de recuperar a senha.");
         return;

@@ -22,18 +22,19 @@
 	<div class="login-container">
         <h2>Login</h2>
 
-        <form th:action="@{/login}" th:object="${loginDTO}" method="post">
-            <input type="email" placeholder="Email" th:field="*{login}">
-            <input type="password" placeholder="Senha" th:field="*{senha}">
+        <form th:action="@{/login}" method="post">
+		    <input id="login" type="email" placeholder="Email" name="login">
+		    <input type="password" placeholder="Senha" name="senha">
+		
+		    <button type="submit">Acessar Usuário</button>
+		
+		    <div th:if="${erro}" class="text-danger">
+		        <p th:text="${erro}"></p>
+		    </div>
+		</form>
 
-            <button type="submit">Acessar Usuário</button>
 
-            <div th:if="${erro}" class="text-danger">
-                <p th:text="${erro}"></p>
-            </div>
-        </form>
-
-        <a href="#" class="forgot-password">Esqueceu a senha?</a>
+        <a href="#" class="forgot-password" onclick="enviarLogin()">Esqueceu a senha?</a>
         <div class="separator">ou</div>
         <a href="#" class="register-link">Cadastre-se</a>
     </div>
