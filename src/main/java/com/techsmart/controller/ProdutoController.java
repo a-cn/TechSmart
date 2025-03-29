@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/produto")
 public class ProdutoController {
-
+//teste
 	@GetMapping
 	public String carregarPagina(Model model) {
 		return "pages/cadastro-produto";
